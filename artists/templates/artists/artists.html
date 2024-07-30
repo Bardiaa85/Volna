@@ -35,7 +35,7 @@
 					<div class="row row--grid">
                         {% for artist in this_page_content %}
 						<div class="col-6 col-sm-4 col-md-3 col-xl-2">
-							<a href="artist.html" class="artist">
+							<a href="{% url 'artists:single_artist_page' slug=artist.slug %}" class="artist">
 								<div class="artist__cover">
 									<img src="{{artist.image.url}}" alt="">
 								</div>

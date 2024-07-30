@@ -59,7 +59,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">فضای ملودی</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">سایت سام</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">کشورم را دوست دارم</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -110,7 +110,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">اسلاید طوسی</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -127,7 +127,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">تنهام نذار</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -144,7 +144,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">پشیمون میشی</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -161,7 +161,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">عشق منی</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -178,7 +178,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">فراموشم نکن</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -195,7 +195,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">راز</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -212,7 +212,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">تقاص</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -229,7 +229,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">سفر</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -246,7 +246,7 @@
 						</div>
 						<div class="album__title">
 							<h3><a href="release.html">احساس</a></h3>
-							<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+							<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 						</div>
 					</div>
 				</div>
@@ -339,61 +339,14 @@
 				<div class="col-12">
 					<div class="main__carousel-wrap">
 						<div class="main__carousel main__carousel--artists owl-carousel" id="artists">
-							<a href="{% url'artists:artists_page'" class="artist">
+							{% for artist in artists %}
+							<a href="{% url 'artists:single_artist_page' slug=artist.slug %}" class="artist">
 								<div class="artist__cover">
-									<img src="/static/img/artists/artist1.jpg" alt="">
+									<img src="{{artist.image.url}}" alt="">
 								</div>
-								<h3 class="artist__title">مهراد خمیری</h3>
+								<h3 class="artist__title">{{artist.nickname}}</h3>
 							</a>
-
-							<a href="{% url'artists:artists_page'" class="artist">
-								<div class="artist__cover">
-									<img src="/static/img/artists/artist2.jpg" alt="">
-								</div>
-								<h3 class="artist__title">مهراد خمیری</h3>
-							</a>
-
-							<a href="{% url'artists:artists_page'" class="artist">
-								<div class="artist__cover">
-									<img src="/static/img/artists/artist3.jpg" alt="">
-								</div>
-								<h3 class="artist__title">ابوالفضل قاسمی</h3>
-							</a>
-
-							<a href="{% url'artists:artists_page'" class="artist">
-								<div class="artist__cover">
-									<img src="/static/img/artists/artist4.jpg" alt="">
-								</div>
-								<h3 class="artist__title">مهراد خمیری</h3>
-							</a>
-
-							<a href="{% url'artists:artists_page'" class="artist">
-								<div class="artist__cover">
-									<img src="/static/img/artists/artist5.jpg" alt="">
-								</div>
-								<h3 class="artist__title">مهراد خمیری</h3>
-							</a>
-
-							<a href="{% url'artists:artists_page'" class="artist">
-								<div class="artist__cover">
-									<img src="/static/img/artists/artist6.jpg" alt="">
-								</div>
-								<h3 class="artist__title">مهراد خمیری</h3>
-							</a>
-
-							<a href="{% url'artists:artists_page'" class="artist">
-								<div class="artist__cover">
-									<img src="/static/img/artists/artist7.jpg" alt="">
-								</div>
-								<h3 class="artist__title">مهراد خمیری</h3>
-							</a>
-
-							<a href="{% url'artists:artists_page'" class="artist">
-								<div class="artist__cover">
-									<img src="img/artists/artist8.jpg" alt="">
-								</div>
-								<h3 class="artist__title">مهراد خمیری</h3>
-							</a>
+							{% endfor %}
 						</div>
 
 						<button class="main__nav main__nav--prev" data-nav="#artists" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,11H9.41l3.3-3.29a1,1,0,1,0-1.42-1.42l-5,5a1,1,0,0,0-.21.33,1,1,0,0,0,0,.76,1,1,0,0,0,.21.33l5,5a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.41,13H17a1,1,0,0,0,0-2Z"/></svg></button>
@@ -426,7 +379,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">تنهام نذار</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">2:35</span>
 								</li>
@@ -440,7 +393,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">پشیمون میشی</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">3:37</span>
 								</li>
@@ -454,7 +407,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">عشق منی</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">5:30</span>
 								</li>
@@ -468,7 +421,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">فراموشم نکن</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">3:42</span>
 								</li>
@@ -482,7 +435,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">راز</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">3:02</span>
 								</li>
@@ -511,7 +464,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">تنهام نذار</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">2:58</span>
 								</li>
@@ -523,7 +476,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">پشیمون میشی</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">3:14</span>
 								</li>
@@ -535,7 +488,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">عشق منی</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">3:21</span>
 								</li>
@@ -547,7 +500,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">فراموشم نکن</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">3:12</span>
 								</li>
@@ -559,7 +512,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">راز</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">5:04</span>
 								</li>
@@ -588,7 +541,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">تنهام نذار</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time single-item__time--live">پخش زنده</span>
 								</li>
@@ -600,7 +553,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">پشیمون میشی</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">59:01</span>
 								</li>
@@ -612,7 +565,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">عشق منی</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">33:10</span>
 								</li>
@@ -624,7 +577,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">فراموشم نکن</a></h4>
-										<span><a href="{% url'artists:artists_page'">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">44:27</span>
 								</li>
@@ -636,7 +589,7 @@
 									</a>
 									<div class="single-item__title">
 										<h4><a href="#">راز</a></h4>
-										<span><a href="{% url 'artists:artists_page'%}">مهراد خمیری</a></span>
+										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
 									</div>
 									<span class="single-item__time">51:41</span>
 								</li>
