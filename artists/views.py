@@ -2,11 +2,11 @@ from django.shortcuts import render
 from .models import Artist
 from django.core.paginator import Paginator
 import random
-
-
-
-def artists_page(request): 
-    data = list(Artist.objects.all()) 
+def artists_page(request):    
+    data = Artist.objects.all()
+    if request.method == "POST" :
+        artist_nickname = request.POST.get("artist-search")
+        data = Artist.objects.filter(nickname__icontains = artist_nickname)
     paginator = Paginator(data , 18)
     page_number = request.GET.get("page")
     this_page = paginator.get_page(page_number)
