@@ -9,3 +9,5 @@ def home_page(request):
     newest_releases2 = Release.objects.order_by("-release_date")[0 : 5]
     most_viewed_releases = Release.objects.order_by("-views")[0 : 5]
     return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases})
+def about_page(request):
+    return render(request , "home/about.html")

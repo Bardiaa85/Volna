@@ -41,7 +41,7 @@
 
 			<nav class="header__nav">
 				<a href="profile.html">پروفایل</a>
-				<a href="about.html">درباره ما</a>
+				<a href="{% url 'home:about_page' %}">درباره ما</a>
 				<a href="contacts.html">تماس با ما</a>
 			</nav>
 
@@ -130,7 +130,7 @@
 				<div class="col-6 col-md-4 col-lg-3 col-xl-2 order-1 order-md-2 order-lg-1 order-xl-2 offset-md-2 offset-lg-0">
 					<h6 class="footer__title">ولنا</h6>
 					<div class="footer__nav">
-						<a href="about.html">درباره ما</a>
+						<a href="{% url 'home:about_page' %}">درباره ما</a>
 						<a href="profile.html">پروفایل من</a>
 						<a href="pricing.html">خرید اشتراک</a>
 						<a href="contacts.html">تماس با ما</a>
@@ -146,7 +146,7 @@
 						<div class="col-6">
 							<div class="footer__nav">
 								<a href="{% url 'artists:artists_page' %}">هنرمندان</a>
-								<a href="releases.html">منتشر شده ها</a>
+								<a href="{% url 'releases:releases_page' %}">منتشر شده ها</a>
 								<a href="events.html">رویداد ها</a>
 								<a href="podcasts.html">پادکست ها</a>
 							</div>
