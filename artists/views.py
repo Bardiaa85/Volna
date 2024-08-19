@@ -15,4 +15,5 @@ def artists_page(request):
     return render(request , "artists/artists.html" , {"this_page_content" : this_page_content , "this_page" : this_page , "paginator" : paginator.page_range , "active_page" : "artists"})
 def single_artist_page(request , slug) :
     data = Artist.objects.get(slug = slug)
-    return render(request , "artists/single-artist.html" , {"artist" : data})
+    releases = data.release_set.all()
+    return render(request , "artists/single-artist.html" , {"artist" : data , "related_releases" : releases , "active_page" : "artists"})

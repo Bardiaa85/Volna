@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from artists.models import Artist
+from releases.models import Release
 import random
 def home_page(request):
-    data = list(Artist.objects.all())
-    data = random.sample(data , 9)
-    return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : data})
+    artists = list(Artist.objects.all())
+    artists = random.sample(artists , 9)
+    newest_releases1 = Release.objects.order_by("-release_date")[0 : 12]
+    newest_releases2 = Release.objects.order_by("-release_date")[0 : 5]
+    most_viewed_releases = Release.objects.order_by("-views")[0 : 5]
+    return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases})

@@ -1,0 +1,158 @@
+{% extends "shared/base.html" %}
+{% block content %}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row row--grid">
+				<!-- breadcrumb -->
+				<div class="col-12">
+					<ul class="breadcrumb">
+						<li class="breadcrumb__item"><a href="index.html">صفحه اصلی</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">منتشر شده ها</li>
+					</ul>
+				</div>
+				<!-- end breadcrumb -->
+
+				<!-- title -->
+				<div class="col-12">
+					<div class="main__title main__title--page">
+						<h1>منتشر شده ها</h1>
+					</div>
+				</div>
+				<!-- end title -->
+			</div>
+
+			<!-- releases -->
+			<div class="row row--grid">
+				<div class="col-12">
+					<div class="main__filter">
+						<form method = "post" action="{% url 'releases:releases_page' %}" class="main__filter-search">
+							{% csrf_token %}
+							<input name = "release-search" type="text" placeholder="جست و جو ...">
+							<button type="submit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"/></svg></button>
+						</form>
+						</div>
+						<div class="row row--grid">
+						{% for release in this_page_content %}
+							<div class="col-6 col-sm-4 col-lg-2">
+								<div class="album">
+									<div class="album__cover">
+									<img src="{{release.cover_art.url}}" alt="">
+									<a href="{% url 'releases:single_release_page' slug=release.slug %}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg></a>
+									<span class="album__stat">
+										<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,13.18V11A8,8,0,0,0,4,11v2.18A3,3,0,0,0,2,16v2a3,3,0,0,0,3,3H8a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1H6V11a6,6,0,0,1,12,0v2H16a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h3a3,3,0,0,0,3-3V16A3,3,0,0,0,20,13.18ZM7,15v4H5a1,1,0,0,1-1-1V16a1,1,0,0,1,1-1Zm13,3a1,1,0,0,1-1,1H17V15h2a1,1,0,0,1,1,1Z"/></svg> {{release.views}}</span>
+									</span>
+									</div>
+									<div class="album__title">
+									<h3><a href="{% url 'releases:single_release_page' slug=release.slug %}">{{release.title}}</a></h3>
+									{% if release.artist %}
+									<span><a href="{% url 'artists:single_artist_page' slug=release.artist.slug %}">{{release.artist}}</a></span>
+									{% else %}
+									<span><a href="#">هنرمند نامشخص</a></span>
+									{% endif %}
+									
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+
+					<div class = "pages">
+						{% for page in paginator %}
+						<a href = "/releases/?page={{page}}" {% if page == this_page.number %} class = "active_page" {% else %} class = "unactive_page" {% endif %}>{{page}}</a>
+						{% endfor %}
+						</div>
+				</div>
+			</div>
+			<!-- end releases -->
+
+			<section class="row row--grid">
+				<div class="col-12 col-xl-8">
+					<div class="row row--grid">
+						<!-- title -->
+						<div class="col-12">
+							<div class="main__title">
+								<h2><a href="#">رویداد های آینده</a></h2>
+							</div>
+						</div>
+						<!-- end title -->
+
+						<div class="col-12 col-md-6">
+							<div class="event" data-bg="img/events/event1.jpg">
+								<a href="#modal-ticket" class="event__ticket open-modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,10a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V11A1,1,0,0,0,9,10Zm12,1a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H3A1,1,0,0,0,2,6v4a1,1,0,0,0,1,1,1,1,0,0,1,0,2,1,1,0,0,0-1,1v4a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1,1,1,0,0,1,0-2ZM20,9.18a3,3,0,0,0,0,5.64V17H10a1,1,0,0,0-2,0H4V14.82A3,3,0,0,0,4,9.18V7H8a1,1,0,0,0,2,0H20Z"/></svg>خرید بلیط</a>
+								<span class="event__date">07 بهمن 1400</span>
+								<span class="event__time">8:00 بعد از ظهر</span>
+								<h3 class="event__title"><a href="event.html">لورم ایپسوم</a></h3>
+								<p class="event__address">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6">
+							<div class="event" data-bg="img/events/event2.jpg">
+								<a href="#modal-ticket" class="event__ticket open-modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,10a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V11A1,1,0,0,0,9,10Zm12,1a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H3A1,1,0,0,0,2,6v4a1,1,0,0,0,1,1,1,1,0,0,1,0,2,1,1,0,0,0-1,1v4a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1,1,1,0,0,1,0-2ZM20,9.18a3,3,0,0,0,0,5.64V17H10a1,1,0,0,0-2,0H4V14.82A3,3,0,0,0,4,9.18V7H8a1,1,0,0,0,2,0H20Z"/></svg>خرید بلیط</a>
+								<span class="event__date">07 بهمن 1400</span>
+								<span class="event__time">7:00 بعد از ظهر</span>
+								<h3 class="event__title"><a href="event.html">لورم ایپسوم</a></h3>
+								<p class="event__address">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-xl-4">
+					<div class="row row--grid">
+						<!-- title -->
+						<div class="col-12">
+							<div class="main__title">
+								<h2><a href="#">تک آهنگ جدید</a></h2>
+							</div>
+						</div>
+						<!-- end title -->
+
+						<div class="col-12">
+							<ul class="main__list">
+							<script>
+							function toggleAudio(audio_file) {
+								const selectedAudio = document.getElementById(audio_file) ;
+								const audios = document.querySelectorAll("audio")
+								audios.forEach(audio => {
+									if (audio !== selectedAudio){
+										audio.pause() ;
+									}
+								}) ;
+								if (selectedAudio.paused){
+									selectedAudio.play() ;
+								} else {
+									selectedAudio.pause() ;
+								}
+							}
+							</script>
+								{% for release in newest_releases %}
+								<li class="single-item">
+									<a id = "audioControl" onclick="toggleAudio('newestRelease{{release.id}}')" data-link data-title="عشق منی" data-artist="مهراد خمیری" data-img={{release.cover_art.url}} href={{release.audio_file.url}} class="single-item__cover">
+										<img src="{{release.cover_art.url}}" alt="">
+										<audio id="newestRelease{{release.id}}"><source src="{{release.audio_file.url}}" type="audio/mpeg"></audio>
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
+									</a>
+									<div class="single-item__title">
+										<h4><a href="#">{{release.title}}</a></h4>
+										{% if release.artist %}
+										<span><a href="{% url 'artists:single_artist_page' slug=release.artist.slug %}">{{release.artist}}</a></span>
+										{% else %}
+										<span><a href="#">هنرمند نامشخص</a></span>
+									 	{% endif %}
+									</div>
+									<span class="single-item__time">{{release.get_audio_duration}}</span>
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>		
+		</div>
+	</main>
+	<!-- end main content -->
+
+{% endblock %}

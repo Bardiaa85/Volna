@@ -1049,9 +1049,26 @@ input{
   transform: translateY(100%);
   transition: transform 0.5s ease;
 }
+.player2 {
+  width: 100%;
+  background-color: #16151a;
+  padding-left:auto ;
+  padding-right: auto;
+  margin-left: auto;
+  margin-bottom: 200px;
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: 2px solid #222227;
+  transform: translateY(100%);
+  transition: transform 0.5s ease;
+  gap : 90px ;
+}
 .player__cover {
   width: 100%;
-  max-width: 90px;
+  max-width: 200px;
 }
 .player__cover img {
   width: 100%;
