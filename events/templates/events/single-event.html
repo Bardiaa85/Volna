@@ -1,0 +1,37 @@
+{% extends "shared/base.html" %}
+{% block content %}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<!-- slider -->
+			<section class="row">
+				<div class="col-12">
+					<div class="hero owl-carousel" id="hero">
+						<div class="hero__slide" data-bg="{{event.image.url}}">
+							<h1 class="hero__title">{{event.title}}</h1>
+							<p class="hero__text">{{event.description}}</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- end slider -->
+
+			<div class="row row--grid">
+				<div class="col-12">
+					<div class="article">
+						<!-- article content -->
+						<div class="article__content">
+							<div class="article__meta">
+								<span class="article__date"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,1,0,22,12,10.01114,10.01114,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8.00917,8.00917,0,0,1,12,20ZM14.09814,9.63379,13,10.26807V7a1,1,0,0,0-2,0v5a1.00025,1.00025,0,0,0,1.5.86621l2.59814-1.5a1.00016,1.00016,0,1,0-1-1.73242Z"/></svg>{{event.get_solar_date}}</span>
+							</div>
+
+							<p>{{event.content}}</p>
+						</div>
+						<!-- end article content -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+{% endblock %}

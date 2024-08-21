@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'home' ,
     'artists' ,
     'releases' ,
+    'events' ,
 ]
 
 MIDDLEWARE = [

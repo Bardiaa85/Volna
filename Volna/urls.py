@@ -7,5 +7,6 @@ urlpatterns = [
     path('' , include('home.urls')),
     path('artists/' , include('artists.urls')),
     path('releases/' , include('releases.urls')),
+    path('events/' , include('events.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

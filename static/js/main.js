@@ -398,7 +398,6 @@ $(document).ready(function () {
 			<div class="plyr__volume">
 				<input data-plyr="volume" type="range" min="0" max="1" step="0.05" value="1" autocomplete="off" aria-label="Volume">
 			</div>
-
 			
 		</div>
 	</div>
