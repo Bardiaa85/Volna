@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from .models import Release
+from events.models import Event
 from django.core.paginator import Paginator
 import random
 def releases_page(request):
    data = Release.objects.all()
+   events = Event.objects.order_by("-event_date")[0 : 2]
    newest_releases = Release.objects.order_by("-release_date")[0 : 5]
    if request.method == "POST" :
         release_title = request.POST.get("release-search")
@@ -13,7 +15,7 @@ def releases_page(request):
    this_page = paginator.get_page(page_number)
    this_page_content = list(this_page)
    random.shuffle(this_page_content)
-   return render(request , "releases/releases.html" , {"paginator" : paginator.page_range , "active_page" : "releases" , "this_page" : this_page , "this_page_content" : this_page_content , "newest_releases" : newest_releases})
+   return render(request , "releases/releases.html" , {"paginator" : paginator.page_range , "active_page" : "releases" , "this_page" : this_page , "this_page_content" : this_page_content , "newest_releases" : newest_releases , "events" : events})
 def single_release_page(request , slug):
     data = Release.objects.get(slug = slug)
     data.views = data.views + 1

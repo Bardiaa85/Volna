@@ -1,0 +1,76 @@
+{% extends "shared/base.html" %}
+{% block content %}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row row--grid">
+				<!-- breadcrumb -->
+				<div class="col-12">
+					<ul class="breadcrumb">
+						<li class="breadcrumb__item"><a href="index.html">صفحه اصلی</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">تماس با ما</li>
+					</ul>
+				</div>
+				<!-- end breadcrumb -->
+
+				<!-- title -->
+				<div class="col-12">
+					<div class="main__title main__title--page">
+						<h1>تماس با ما</h1>
+					</div>
+				</div>
+				<!-- end title -->
+			</div>
+
+			<div dir="rtl" class="row row--grid">
+				<div class="col-12 col-md-12 col-lg-6 col-xl-8">
+					<form method="post" action="{% url 'contact:contact_us_page' %}" class="sign__form sign__form--contacts">
+                        {% csrf_token %}
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="sign__group">
+									{{form.name}}
+                                    {{form.name.errors}}
+								</div>
+							</div>
+
+							<div class="col-12 col-md-6">
+								<div class="sign__group">
+									{{form.email}}
+                                    {{form.email.errors}}
+								</div>
+							</div>
+
+							<div class="col-12">
+								<div class="sign__group">
+									{{form.subject}}
+                                    {{form.subject.errors}}
+								</div>
+							</div>
+
+							<div class="col-12">
+								<div class="sign__group">
+									{{form.text}}
+                                    {{form.text.errors}}
+								</div>
+							</div>
+
+							<div class="col-12 col-xl-3">
+								<button type="submit" class="sign__btn">ارسال</button>
+							</div>
+						</div>
+					</form>	
+				</div>
+                <div class="col-12 col-md-12 col-lg-6 col-xl-4">
+					<div class="main__title main__title--sidebar">
+						<h2>اطلاعات</h2>
+						<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+					</div>
+					<ul class="contacts__list">
+						<li dir="ltr"><a href="tel:+18092345678">+98 911 000 0000</a></li>
+						<li dir="ltr"><a href="mailto:volna@gmail.com">volna@gmail.com</a></li>
+						<li><a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="open-map">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</a></li>
+					</ul>
+				</div>
+			</div>
+{% endblock %}

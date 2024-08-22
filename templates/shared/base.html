@@ -42,7 +42,7 @@
 			<nav class="header__nav">
 				<a href="profile.html">پروفایل</a>
 				<a href="{% url 'home:about_page' %}">درباره ما</a>
-				<a href="contacts.html">تماس با ما</a>
+				<a href="{% url 'contact:contact_us_page' %}">تماس با ما</a>
 			</nav>
 
 			<form action="#" class="header__search">
@@ -133,7 +133,7 @@
 						<a href="{% url 'home:about_page' %}">درباره ما</a>
 						<a href="profile.html">پروفایل من</a>
 						<a href="pricing.html">خرید اشتراک</a>
-						<a href="contacts.html">تماس با ما</a>
+						<a href="{% url 'contact:contact_us_page' %}">تماس با ما</a>
 					</div>
 				</div>
 				

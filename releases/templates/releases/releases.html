@@ -76,26 +76,21 @@
 							</div>
 						</div>
 						<!-- end title -->
-
+						{% for event in events %}
 						<div class="col-12 col-md-6">
-							<div class="event" data-bg="img/events/event1.jpg">
-								<a href="#modal-ticket" class="event__ticket open-modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,10a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V11A1,1,0,0,0,9,10Zm12,1a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H3A1,1,0,0,0,2,6v4a1,1,0,0,0,1,1,1,1,0,0,1,0,2,1,1,0,0,0-1,1v4a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1,1,1,0,0,1,0-2ZM20,9.18a3,3,0,0,0,0,5.64V17H10a1,1,0,0,0-2,0H4V14.82A3,3,0,0,0,4,9.18V7H8a1,1,0,0,0,2,0H20Z"/></svg>خرید بلیط</a>
-								<span class="event__date">07 بهمن 1400</span>
-								<span class="event__time">8:00 بعد از ظهر</span>
-								<h3 class="event__title"><a href="event.html">لورم ایپسوم</a></h3>
-								<p class="event__address">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
+							<div class="event" data-bg="{{event.image.url}}">
+								{% if event.in_progress %} 
+								<span class="event__ticket open-modal">در حال جریان</span>
+								{% else %}
+								<span class="event__out">اتمام یافته</span>
+								{% endif %}
+								<span class="event__date">{{event.get_solar_date}}</span>
+								<span class="event__time">{{event.get_time}}</span>
+								<h3 class="event__title"><a href="{% url 'events:single_event_page' slug=event.slug %}">{{event.title}}</a></h3>
+								<p class="event__address">{{event.description}}</p>
+								</div>
 							</div>
-						</div>
-
-						<div class="col-12 col-md-6">
-							<div class="event" data-bg="img/events/event2.jpg">
-								<a href="#modal-ticket" class="event__ticket open-modal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,10a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V11A1,1,0,0,0,9,10Zm12,1a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H3A1,1,0,0,0,2,6v4a1,1,0,0,0,1,1,1,1,0,0,1,0,2,1,1,0,0,0-1,1v4a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V14a1,1,0,0,0-1-1,1,1,0,0,1,0-2ZM20,9.18a3,3,0,0,0,0,5.64V17H10a1,1,0,0,0-2,0H4V14.82A3,3,0,0,0,4,9.18V7H8a1,1,0,0,0,2,0H20Z"/></svg>خرید بلیط</a>
-								<span class="event__date">07 بهمن 1400</span>
-								<span class="event__time">7:00 بعد از ظهر</span>
-								<h3 class="event__title"><a href="event.html">لورم ایپسوم</a></h3>
-								<p class="event__address">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
-							</div>
-						</div>
+						{% endfor %}
 					</div>
 				</div>
 
