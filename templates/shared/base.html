@@ -103,7 +103,7 @@
 			</li>
 
 			<li class="sidebar__nav-item">
-				<a href="podcasts.html" {% if active_page == "podcasts" %} class="sidebar__nav-link sidebar__nav-link--active" {% else %} class="sidebar__nav-link" {% endif %}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,15a4,4,0,0,0,4-4V5A4,4,0,0,0,8,5v6A4,4,0,0,0,12,15ZM10,5a2,2,0,0,1,4,0v6a2,2,0,0,1-4,0Zm10,6a1,1,0,0,0-2,0A6,6,0,0,1,6,11a1,1,0,0,0-2,0,8,8,0,0,0,7,7.93V21H9a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2H13V18.93A8,8,0,0,0,20,11Z"/></svg> <span>پادکست ها</span></a>
+				<a href="{% url 'news:news_page' %}" {% if active_page == "news" %} class="sidebar__nav-link sidebar__nav-link--active" {% else %} class = "sidebar__nav-link" {% endif %}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,14H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Zm0-4H10a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2Zm4-6H17V3a1,1,0,0,0-2,0V4H13V3a1,1,0,0,0-2,0V4H9V3A1,1,0,0,0,7,3V4H4A1,1,0,0,0,3,5V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V5A1,1,0,0,0,20,4ZM19,19a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V6H7V7A1,1,0,0,0,9,7V6h2V7a1,1,0,0,0,2,0V6h2V7a1,1,0,0,0,2,0V6h2Z"/></svg> <span>اخبار</span></a>
 			</li>
 		</ul>
 		<!-- end sidebar nav -->
@@ -148,7 +148,7 @@
 								<a href="{% url 'artists:artists_page' %}">هنرمندان</a>
 								<a href="{% url 'releases:releases_page' %}">منتشر شده ها</a>
 								<a href="{% url 'events:events_page' %}">رویداد ها</a>
-								<a href="podcasts.html">پادکست ها</a>
+								<a href="{% url 'news:news_page' %}">اخبار</a>
 							</div>
 						</div>
 
