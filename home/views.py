@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from artists.models import Artist
 from releases.models import Release
 from events.models import Event
@@ -15,3 +16,15 @@ def home_page(request):
     return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases , "events" : events , "news" : news})
 def about_page(request):
     return render(request , "home/about.html" , {"active_page" : "main_page"})
+def search_page(request):
+    if request.method == "POST":
+        title = request.POST.get("all-search")
+        artists = Artist.objects.filter(nickname__icontains = title)
+        releases = Release.objects.filter(title__icontains = title)
+        if len(list(artists)) == 0 and len(list(releases)) == 0 :
+            noresult = True
+        else :
+            noresult = False
+        return render(request , "home/search.html" , {"artists" : artists , "releases" : releases , "active_page" : "main_page" , "no_result" : noresult})
+    else :
+        return redirect("home:home_page")
