@@ -1,0 +1,62 @@
+{% extends "shared/base.html" %}
+{% block content %}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row row--grid">
+				<!-- breadcrumb -->
+				<div class="col-12">
+					<ul class="breadcrumb">
+						<li class="breadcrumb__item"><a href="index.html">صفحه اصلی</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">ثبت نام</li>
+					</ul>
+				</div>
+				<!-- end breadcrumb -->
+
+				<!-- registration form -->
+				<div class="col-12">
+					<div class="sign">
+						<div class="sign__content">
+							<form method = "post" action="{% url 'account:sign_up_page' %}" class="sign__form">
+								{% csrf_token %}
+								<a href="{% url 'home:home_page' %}" class="sign__logo">
+									<img src="/static/img/logo.svg" alt="">
+								</a>
+
+								<div class="sign__group">
+									{{form.full_name}}
+                                    {{form.full_name.errors}}
+								</div>
+
+								<div class="sign__group">
+									{{form.email}}
+                                    {{form.email.errors}}
+								</div>
+
+								<div class="sign__group">
+									{{form.password}}
+                                    {{form.password.errors}}                   
+								</div>
+
+                                <div class="sign__group">
+									{{form.password_confirmation}}
+                                    {{form.password_confirmation.errors}}
+								</div>
+
+								<div class="sign__group sign__group--checkbox">
+									<p style = "  color: #ffffff; ">ثبت نام یعنی موافقت با <a href="privacy.html">قوانین و مقررات</a></p>
+								</div>
+								
+								<button class="sign__btn" type="submit">ثبت نام</button>
+
+								<span class="sign__text">حساب دارید ؟ <a href="{% url 'account:sign_in_page' %}">وارد شوید!</a></span>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- end registration form -->
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+{% endblock %}

@@ -30,7 +30,7 @@
                             <img src="{{article.image.url}}" alt="">
 						</div>
 						<!-- end article content -->
-
+						{% if user.is_authenticated %}
 						<!-- comments -->
 						<div class="comments">
 							<div class="comments__title">
@@ -143,6 +143,21 @@
 							</form>
 						</div>
 						<!-- end comments -->
+						 {% else %}
+						 <!-- error -->
+				<div class="col-12">
+					<div class="page-404">
+						<div class="page-404__wrap">
+							<div class="page-404__content">
+								
+								<h2 class="page-404__text">برای دسترسی به بخش نظرات باید به حساب کاربری خود وارد شوید</h2>
+								<a href="{% url 'account:sign_in_page' %}" class="page-404__btn">ورود به حساب کاربری</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end error -->
+				 {% endif %}
 					</div>
 				</div>
 			</div>

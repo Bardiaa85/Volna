@@ -4,8 +4,16 @@ from artists.models import Artist
 from releases.models import Release
 from events.models import Event
 from news.models import Article
+from  account.models import Profile
+def apply_profile(request):
+    if request.user.is_authenticated :
+        user = request.user
+        return Profile.objects.get(related_user = user).full_name
+    else :
+        return None   
 import random
 def home_page(request):
+    user_full_name = apply_profile(request)
     artists = list(Artist.objects.all())
     artists = random.sample(artists , 9)
     newest_releases1 = Release.objects.order_by("-release_date")[0 : 12]
@@ -13,10 +21,12 @@ def home_page(request):
     most_viewed_releases = Release.objects.order_by("-views")[0 : 5]
     events = Event.objects.order_by("-event_date")[0 : 4]
     news = Article.objects.order_by("-article_date")[0 : 3]
-    return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases , "events" : events , "news" : news})
+    return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases , "events" : events , "news" : news , "user_full_name" : user_full_name})
 def about_page(request):
-    return render(request , "home/about.html" , {"active_page" : "main_page"})
+    user_full_name = apply_profile(request)
+    return render(request , "home/about.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name})
 def search_page(request):
+    user_full_name = apply_profile(request)
     if request.method == "POST":
         title = request.POST.get("all-search")
         artists = Artist.objects.filter(nickname__icontains = title)
@@ -25,6 +35,6 @@ def search_page(request):
             noresult = True
         else :
             noresult = False
-        return render(request , "home/search.html" , {"artists" : artists , "releases" : releases , "active_page" : "main_page" , "no_result" : noresult})
+        return render(request , "home/search.html" , {"artists" : artists , "releases" : releases , "active_page" : "main_page" , "no_result" : noresult , "user_full_name" : user_full_name})
     else :
         return redirect("home:home_page")

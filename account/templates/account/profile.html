@@ -1,0 +1,91 @@
+{% extends "shared/base.html" %}
+{% block content %}
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row row--grid">
+				<!-- breadcrumb -->
+				<div class="col-12">
+					<ul class="breadcrumb">
+						<li class="breadcrumb__item"><a href="index.html">صفحه اصلی</a></li>
+						<li class="breadcrumb__item breadcrumb__item--active">پروفایل</li>
+					</ul>
+				</div>
+				<!-- end breadcrumb -->
+
+				<!-- title -->
+				<div class="col-12">
+					<div class="main__title main__title--page">
+						<h1>پروفایل</h1>
+					</div>
+				</div>
+				<!-- end title -->
+			</div>
+
+			<div dir="rtl" class="row row--grid">
+				<div class="col-12">
+					<div class="profile">
+						<div class="profile__user">
+							<div class="profile__avatar">
+								<img src="/static/img/avatar.svg" alt="">
+							</div>
+							<div class="profile__meta">
+								<h3>{{profile.full_name}}</h3>
+								<span> شناسه کاربری : {{user.id}}</span>
+
+							</div>
+						</div>
+
+
+						<a class="profile__logout" href = "{% url 'account:log_out_page' %}">
+							<span>خارج شوید</span>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"/></svg>
+                        </a>
+					</div>
+
+					<!-- content tabs -->
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+							<div class="row row--grid">
+								<div class="col-12 col-lg-6 col-xl-3">
+									<div class="stats">
+										<span>نام و نام خانوادگی</span>
+										<p><b>{{profile.full_name}}</b></p>
+									</div>
+								</div>
+
+								<div class="col-12 col-lg-6 col-xl-3">
+									<div class="stats">
+										<span>شناسه کاربری</span>
+										<p><b>{{user.id}}</b></p>
+									</div>
+								</div>
+
+								<div class="col-12 col-lg-6 col-xl-3">
+									<div class="stats">
+										<span>ایمیل</span>
+										<p>{{user.email}}</p>
+									</div>
+								</div>
+
+								<div class="col-12 col-lg-6 col-xl-3">
+									<div class="stats">
+										<span>نوع اکانت</span>
+                                        {% if user.is_active %}
+                                        <p><b>فعال</b></p>
+                                        {% else %}
+                                        <p><b>غیر فعال</b></p>
+                                    {% endif %}
+									</div>
+								</div>
+							</div>
+
+
+							</div>
+						</div>
+				</div>
+			</div>	
+		</div>
+	</main>
+	<!-- end main content -->
+{% endblock %}

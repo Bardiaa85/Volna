@@ -2,8 +2,10 @@ from django.shortcuts import render
 from .models import Release
 from events.models import Event
 from django.core.paginator import Paginator
+from home.views import apply_profile
 import random
 def releases_page(request):
+   user_full_name = apply_profile(request)
    data = Release.objects.all()
    events = Event.objects.order_by("-event_date")[0 : 2]
    newest_releases = Release.objects.order_by("-release_date")[0 : 5]
@@ -15,9 +17,12 @@ def releases_page(request):
    this_page = paginator.get_page(page_number)
    this_page_content = list(this_page)
    random.shuffle(this_page_content)
-   return render(request , "releases/releases.html" , {"paginator" : paginator.page_range , "active_page" : "releases" , "this_page" : this_page , "this_page_content" : this_page_content , "newest_releases" : newest_releases , "events" : events})
+   return render(request , "releases/releases.html" , {"paginator" : paginator.page_range , "active_page" : "releases" , "this_page" : this_page , "this_page_content" : this_page_content , "newest_releases" : newest_releases , "events" : events , "user_full_name" : user_full_name})
 def single_release_page(request , slug):
+    if request.user.is_authenticated == False :
+        return render(request , "shared/login-required.html" , {"active_page" : "releases"})
+    user_full_name = apply_profile(request)
     data = Release.objects.get(slug = slug)
     data.views = data.views + 1
     data.save()
-    return render(request , "releases/single-release.html" , {"release" : data , "active_page" : "releases"})
+    return render(request , "releases/single-release.html" , {"release" : data , "active_page" : "releases" , "user_full_name" : user_full_name})
