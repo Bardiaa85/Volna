@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Release
 from events.models import Event
 from django.core.paginator import Paginator
+from account.models import Profile
 from home.views import apply_profile
 import random
 def releases_page(request):
@@ -21,8 +22,14 @@ def releases_page(request):
 def single_release_page(request , slug):
     if request.user.is_authenticated == False :
         return render(request , "shared/login-required.html" , {"active_page" : "releases"})
+    profile = Profile.objects.get(related_user = request.user)
     user_full_name = apply_profile(request)
     data = Release.objects.get(slug = slug)
+    favorites_list = profile.favorites_list.all()
+    if data in favorites_list:
+        in_favorites_list = True
+    else :
+        in_favorites_list = False
     data.views = data.views + 1
     data.save()
-    return render(request , "releases/single-release.html" , {"release" : data , "active_page" : "releases" , "user_full_name" : user_full_name})
+    return render(request , "releases/single-release.html" , {"release" : data , "active_page" : "releases" , "user_full_name" : user_full_name , "in_favorites_list" : in_favorites_list})

@@ -1,6 +1,15 @@
 {% extends "shared/base.html" %}
 {% block content %}
+{% if no_list %}
+<main class="main">
+    <div class="container-fluid">
+        <div class="main__title main__title--page">
+            <h4  style = "color: #c0c0c0; padding-left: 500px; padding-right: 500px; margin-top: 80px ;margin-bottom: 80px;">هیچ آهنگی در لیست علاقه‌مندی شما وجود ندارد</h4>
+        </div>           
+    </div>
+        </main>
 	<!-- main content -->
+     {% else %}
 	<main class="main">
 		<div class="container-fluid">
 			<div class="row row--grid">
@@ -8,15 +17,14 @@
 				<div class="col-12">
 					<ul class="breadcrumb">
 						<li class="breadcrumb__item"><a href="index.html">صفحه اصلی</a></li>
-						<li class="breadcrumb__item breadcrumb__item--active">جست و جو</li>
+						<li class="breadcrumb__item breadcrumb__item--active">لیست علاقه‌مندی ها</li>
 					</ul>
 				</div>
 				<!-- end breadcrumb -->
-            {% if releases %}
 				<!-- title -->
 				<div class="col-12">
 					<div class="main__title main__title--page">
-						<h1>منتشر شده ها</h1>
+						<h1>لیست علاقه‌مندی ها</h1>
 					</div>
 				</div>
 				<!-- end title -->
@@ -25,7 +33,7 @@
 			<div class="row row--grid">
                 <div class="col-12">
                     <div class="row row--grid">
-                        {% for release in releases %}
+                        {% for release in this_page %}
                         <div class="col-6 col-sm-4 col-lg-2">
                             <div class="album">
                                 <div class="album__cover">
@@ -50,44 +58,13 @@
 					</div>
 				</div>
 			</div>
+            <div class = "pages">
+                {% for page in paginator %}
+                <a href = "/releases/?page={{page}}" {% if page == this_page.number %} class = "active_page" {% else %} class = "unactive_page" {% endif %}>{{page}}</a>
+                {% endfor %}
+                </div>
 			<!-- end releases -->
-            {% endif %}
-            {% if artists %}
-            				<!-- title -->
-				<div class="col-12">
-					<div class="main__title main__title--page">
-						<h1>هنرمندان</h1>
-					</div>
-				</div>
-				<!-- end title -->
-			</div>
-            <div class="row row--grid">
-				<div class="col-12">
-
-					<div class="row row--grid">
-                        {% for artist in artists %}
-						<div class="col-6 col-sm-4 col-md-3 col-xl-2">
-							<a href="{% url 'artists:single_artist_page' slug=artist.slug %}" class="artist">
-								<div class="artist__cover">
-									<img src="{{artist.image.url}}" alt="">
-								</div>
-								<h3 class="artist__title">{{artist.nickname}}</h3>
-							</a>
-						</div>
-                        {% endfor %}
-                    </div>
-			</div>
-			<!-- end artists -->
-             {% endif %}
         </div>
     </main>
-    {% if no_result %}
-    <main class="main">
-        <div class="container-fluid">
-			<div class="main__title main__title--page">
-                <h1 style = "color: #c0c0c0; padding-left: 500px; padding-right: 500px;">موردی برای جست و جو یافت نشد</h1>
-            </div>           
-        </div>
-            </main>
-            {% endif %}
+    {% endif %}
 {% endblock %}
