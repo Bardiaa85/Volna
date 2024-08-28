@@ -18,3 +18,5 @@ class Release(models.Model):
             minutes, seconds = divmod(duration, 60)
             return f"{minutes}:{seconds:02d}"
         return "Unknown duration"
+    def len_comments(self):
+        return len(self.comment_set.all())

@@ -12,6 +12,7 @@ def news_page(request):
 def single_article_page(request , slug):
     user_full_name = apply_profile(request)
     data = Article.objects.get(slug = slug)
-    return render(request , "news/single-article.html" , {"active_page" : "news" , "article" : data , "user_full_name" : user_full_name})
+    comments_list = data.comment_set.order_by("-comment_date")
+    return render(request , "news/single-article.html" , {"active_page" : "news" , "article" : data , "user_full_name" : user_full_name , "comments_list" : comments_list})
 
     

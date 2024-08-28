@@ -19,9 +19,12 @@ def home_page(request):
     newest_releases1 = Release.objects.order_by("-release_date")[0 : 12]
     newest_releases2 = Release.objects.order_by("-release_date")[0 : 5]
     most_viewed_releases = Release.objects.order_by("-views")[0 : 5]
+    most_commented_releases = list(Release.objects.all())
+    most_commented_releases.sort(key = lambda release : release.len_comments() , reverse = True)
+    most_commented_releases = most_commented_releases[0 : 5]
     events = Event.objects.order_by("-event_date")[0 : 4]
     news = Article.objects.order_by("-article_date")[0 : 3]
-    return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases , "events" : events , "news" : news , "user_full_name" : user_full_name})
+    return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases , "events" : events , "news" : news , "user_full_name" : user_full_name , "most_commented_releases" : most_commented_releases})
 def about_page(request):
     user_full_name = apply_profile(request)
     return render(request , "home/about.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name})

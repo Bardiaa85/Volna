@@ -26,10 +26,11 @@ def single_release_page(request , slug):
     user_full_name = apply_profile(request)
     data = Release.objects.get(slug = slug)
     favorites_list = profile.favorites_list.all()
+    comments_list = data.comment_set.order_by("-comment_date")
     if data in favorites_list:
         in_favorites_list = True
     else :
         in_favorites_list = False
     data.views = data.views + 1
     data.save()
-    return render(request , "releases/single-release.html" , {"release" : data , "active_page" : "releases" , "user_full_name" : user_full_name , "in_favorites_list" : in_favorites_list})
+    return render(request , "releases/single-release.html" , {"release" : data , "active_page" : "releases" , "user_full_name" : user_full_name , "in_favorites_list" : in_favorites_list , "comments_list" : comments_list})

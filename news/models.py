@@ -54,5 +54,7 @@ class Article(models.Model):
             return f"{int(months)} ماه پیش"
         else:
             return f"{int(years)} سال پیش"
+    def len_comments(self):
+        return len(self.comment_set.all())
     def __str__(self):
         return self.title

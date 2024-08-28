@@ -233,73 +233,32 @@
 						<!-- title -->
 						<div class="col-12">
 							<div class="main__title">
-								<h2><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,15a4,4,0,0,0,4-4V5A4,4,0,0,0,8,5v6A4,4,0,0,0,12,15ZM10,5a2,2,0,0,1,4,0v6a2,2,0,0,1-4,0Zm10,6a1,1,0,0,0-2,0A6,6,0,0,1,6,11a1,1,0,0,0-2,0,8,8,0,0,0,7,7.93V21H9a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2H13V18.93A8,8,0,0,0,20,11Z"/></svg><a href="#">پادکست ها</a></h2>
+								<h2><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,15a4,4,0,0,0,4-4V5A4,4,0,0,0,8,5v6A4,4,0,0,0,12,15ZM10,5a2,2,0,0,1,4,0v6a2,2,0,0,1-4,0Zm10,6a1,1,0,0,0-2,0A6,6,0,0,1,6,11a1,1,0,0,0-2,0,8,8,0,0,0,7,7.93V21H9a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2H13V18.93A8,8,0,0,0,20,11Z"/></svg><a href="#">بحث برانگیز ترین ها</a></h2>
 							</div>
 						</div>
 						<!-- end title -->
 
 						<div class="col-12">
 							<ul class="main__list">
+								{% for release in most_commented_releases %}
 								<li class="single-item">
-									<a data-link data-title="تنهام نذار" data-artist="مهراد خمیری" data-img="img/covers/cover6.jpg" href="audio/Mehrad_Khamiri_-_02_Tanham_Nazar.mp3" class="single-item__cover">
-										<img src="/static/img/covers/cover6.jpg" alt="">
+									<a id = "audioControl" onclick="toggleAudio('newestRelease{{release.id}}')" data-link data-title="عشق منی" data-artist="مهراد خمیری" data-img={{release.cover_art.url}} href={{release.audio_file.url}} class="single-item__cover">
+										<img src="{{release.cover_art.url}}" alt="">
+										<audio id="newestRelease{{release.id}}"><source src="{{release.audio_file.url}}" type="audio/mpeg"></audio>
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
 									</a>
 									<div class="single-item__title">
-										<h4><a href="#">تنهام نذار</a></h4>
-										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
+										<h4><a href="{% url 'releases:single_release_page' slug=release.slug%}">{{release.title}}</a></h4>
+										{% if release.artist %}
+										<span><a href="{% url 'artists:single_artist_page' slug=release.artist.slug %}">{{release.artist}}</a></span>
+										{% else %}
+										<span><a href="#">هنرمند نامشخص</a></span>
+									 	{% endif %}
 									</div>
-									<span class="single-item__time single-item__time--live">پخش زنده</span>
+									<span class="single-item__time">{{release.get_audio_duration}}</span>
 								</li>
-								<li class="single-item">
-									<a data-link data-title="پشیمون میشی" data-artist="مهراد خمیری" data-img="img/covers/cover9.jpg" href="audio/Mehrad_Khamiri_-_01_Pashimun_Mishi.mp3" class="single-item__cover">
-										<img src="/static/img/covers/cover9.jpg" alt="">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
-									</a>
-									<div class="single-item__title">
-										<h4><a href="#">پشیمون میشی</a></h4>
-										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
-									</div>
-									<span class="single-item__time">59:01</span>
-								</li>
-								<li class="single-item">
-									<a data-link data-title="عشق منی" data-artist="مهراد خمیری" data-img="img/covers/podcast.svg" href="audio/Mehrad_Khamiri_-_03_Eshghe_Mani.mp3" class="single-item__cover">
-										<img src="/static/img/covers/podcast.svg" alt="">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
-									</a>
-									<div class="single-item__title">
-										<h4><a href="#">عشق منی</a></h4>
-										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
-									</div>
-									<span class="single-item__time">33:10</span>
-								</li>
-								<li class="single-item">
-									<a data-link data-title="فراموشم نکن" data-artist="مهراد خمیری" data-img="img/covers/cover11.jpg" href="audio/Mehrad_Khamiri_-_04_Faramoosham_Nakon.mp3" class="single-item__cover">
-										<img src="/static/img/covers/cover11.jpg" alt="">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
-									</a>
-									<div class="single-item__title">
-										<h4><a href="#">فراموشم نکن</a></h4>
-										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
-									</div>
-									<span class="single-item__time">44:27</span>
-								</li>
-								<li class="single-item">
-									<a data-link data-title="راز" data-artist="مهراد خمیری" data-img="img/covers/cover12.jpg" href="audio/Mehrad_Khamiri_-_07_Raaz.mp3" class="single-item__cover">
-										<img src="/static/img/covers/cover12.jpg" alt="">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.54,9,8.88,3.46a3.42,3.42,0,0,0-5.13,3V17.58A3.42,3.42,0,0,0,7.17,21a3.43,3.43,0,0,0,1.71-.46L18.54,15a3.42,3.42,0,0,0,0-5.92Zm-1,4.19L7.88,18.81a1.44,1.44,0,0,1-1.42,0,1.42,1.42,0,0,1-.71-1.23V6.42a1.42,1.42,0,0,1,.71-1.23A1.51,1.51,0,0,1,7.17,5a1.54,1.54,0,0,1,.71.19l9.66,5.58a1.42,1.42,0,0,1,0,2.46Z"/></svg>
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2a3,3,0,0,0-3,3V19a3,3,0,0,0,6,0V5A3,3,0,0,0,16,2Zm1,17a1,1,0,0,1-2,0V5a1,1,0,0,1,2,0ZM8,2A3,3,0,0,0,5,5V19a3,3,0,0,0,6,0V5A3,3,0,0,0,8,2ZM9,19a1,1,0,0,1-2,0V5A1,1,0,0,1,9,5Z"/></svg>
-									</a>
-									<div class="single-item__title">
-										<h4><a href="#">راز</a></h4>
-										<span><a href="{% url 'artists:artists_page' %}">مهراد خمیری</a></span>
-									</div>
-									<span class="single-item__time">51:41</span>
-								</li>
+								{% endfor %}
 							</ul>
 						</div>
 					</div>
@@ -329,7 +288,7 @@
 							<h3 class="post__title"><a href="{% url 'news:single_article_page' slug=article.slug %}">{{article.title}}</a></h3>
 							<div class="post__meta">
 								<span class="post__date"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,1,0,22,12,10.01114,10.01114,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8.00917,8.00917,0,0,1,12,20ZM14.09814,9.63379,13,10.26807V7a1,1,0,0,0-2,0v5a1.00025,1.00025,0,0,0,1.5.86621l2.59814-1.5a1.00016,1.00016,0,1,0-1-1.73242Z"/></svg>{{article.time_since}}</span>
-								<span class="post__comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9H7a1,1,0,0,0,0,2H17a1,1,0,0,0,0-2Zm-4,4H7a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2ZM12,2A10,10,0,0,0,2,12a9.89,9.89,0,0,0,2.26,6.33l-2,2a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,22h9A10,10,0,0,0,12,2Zm0,18H5.41l.93-.93a1,1,0,0,0,0-1.41A8,8,0,1,1,12,20Z"/></svg> 18</span>
+								<span class="post__comments"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9H7a1,1,0,0,0,0,2H17a1,1,0,0,0,0-2Zm-4,4H7a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2ZM12,2A10,10,0,0,0,2,12a9.89,9.89,0,0,0,2.26,6.33l-2,2a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,22h9A10,10,0,0,0,12,2Zm0,18H5.41l.93-.93a1,1,0,0,0,0-1.41A8,8,0,1,1,12,20Z"/></svg> {{article.len_comments}}</span>
 							</div>
 						</div>
 					</div>
