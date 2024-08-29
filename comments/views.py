@@ -18,3 +18,12 @@ def adding_comment(request , slug):
             new_comment = Comment(content = comment_content , related_article = article , related_user = request.user)
             new_comment.save()
             return redirect("news:single_article_page" , slug = slug)
+def delete_comment(request , id):
+    comment = Comment.objects.get(id = id)
+    if comment.related_release :
+        comment.delete()
+        return redirect("releases:single_release_page" , slug = comment.related_release.slug)
+    else:
+        comment.delete()
+        return redirect("news:single_article_page" , slug = comment.related_article.slug)
+            

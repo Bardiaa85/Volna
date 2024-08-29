@@ -71,10 +71,10 @@
 								<div class="col-12 col-lg-6 col-xl-3">
 									<div class="stats">
 										<span>نوع اکانت</span>
-                                        {% if user.is_active %}
-                                        <p><b>فعال</b></p>
+                                        {% if user.is_staff == False %}
+                                        <p><b>معمولی</b></p>
                                         {% else %}
-                                        <p><b>غیر فعال</b></p>
+                                        <p><b>ادمین</b></p>
                                     {% endif %}
 									</div>
 								</div>

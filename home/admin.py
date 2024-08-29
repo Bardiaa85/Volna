@@ -1,3 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
+from .models import AboutUsText, RulesText , SliderShow
+admin.site.register(AboutUsText)
+admin.site.register(RulesText)
+admin.site.register(SliderShow)

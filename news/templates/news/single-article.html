@@ -43,7 +43,11 @@
 								<li class="comments__item">
 									<div class="comments__autor">
 										<img class="comments__avatar" src="/static/img/avatar.svg" alt="">
+										{% if comment.related_user.is_staff == False %}
 										<span class="comments__name">{{comment.related_profile.full_name}}</span>
+										{% else %}
+										<span style = "color: #B3FF80; "class="comments__name"><b>{{comment.related_profile.full_name}}</b></span>
+										{% endif %}
 										<span class="comments__time">{{comment.get_time}} , {{comment.get_solar_date}}</span>
 									</div>
 									<p class="comments__text">{{comment.content}}</p>
@@ -51,6 +55,13 @@
 										<div class="comments__rate">
 	
 										</div>
+										{% if comment.related_user == user or user.is_staff %}
+                                    <a style="color: #ffff ; margin-left: 15px;" href="{% url 'comments:delete_comment' id=comment.id %}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+                                            <path d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
+                                          </svg>
+                                    </a>
+                                    {% endif %}
 									</div>
 								</li>
 								{% endfor %}

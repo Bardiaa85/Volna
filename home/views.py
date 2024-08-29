@@ -4,7 +4,8 @@ from artists.models import Artist
 from releases.models import Release
 from events.models import Event
 from news.models import Article
-from  account.models import Profile
+from account.models import Profile
+from .models import SliderShow , AboutUsText , RulesText
 def apply_profile(request):
     if request.user.is_authenticated :
         user = request.user
@@ -15,6 +16,7 @@ import random
 def home_page(request):
     user_full_name = apply_profile(request)
     artists = list(Artist.objects.all())
+    slider_show = list(SliderShow.objects.all())[-1] if len(SliderShow.objects.all()) != 0 else None
     artists = random.sample(artists , 9)
     newest_releases1 = Release.objects.order_by("-release_date")[0 : 12]
     newest_releases2 = Release.objects.order_by("-release_date")[0 : 5]
@@ -24,10 +26,11 @@ def home_page(request):
     most_commented_releases = most_commented_releases[0 : 5]
     events = Event.objects.order_by("-event_date")[0 : 4]
     news = Article.objects.order_by("-article_date")[0 : 3]
-    return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases , "events" : events , "news" : news , "user_full_name" : user_full_name , "most_commented_releases" : most_commented_releases})
+    return render(request , "home/home.html" , {"active_page" : "main_page" , "artists" : artists , "newest_releases1" : newest_releases1 , "newest_releases2" : newest_releases2 , "most_viewed_releases" : most_viewed_releases , "events" : events , "news" : news , "user_full_name" : user_full_name , "most_commented_releases" : most_commented_releases, "slider_show" : slider_show})
 def about_page(request):
     user_full_name = apply_profile(request)
-    return render(request , "home/about.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name})
+    about_us_text = list(AboutUsText.objects.all())[-1] if len(AboutUsText.objects.all()) != 0 else None
+    return render(request , "home/about.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name , "about_us_text" : about_us_text})
 def search_page(request):
     user_full_name = apply_profile(request)
     if request.method == "POST":
@@ -41,3 +44,7 @@ def search_page(request):
         return render(request , "home/search.html" , {"artists" : artists , "releases" : releases , "active_page" : "main_page" , "no_result" : noresult , "user_full_name" : user_full_name})
     else :
         return redirect("home:home_page")
+def rules_page(request):
+    user_full_name = apply_profile(request)
+    rules_text = list(RulesText.objects.all())[-1] if len(RulesText.objects.all()) != 0 else None
+    return render(request , "home/rules.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name , "rules_text" : rules_text})
