@@ -6341,3 +6341,9 @@ input{
 .errorlist {
   color:red;
 }
+#canvas {
+  width: 100vw ;
+  height: 150px;
+  display: block;
+  background-color: transparent;
+}

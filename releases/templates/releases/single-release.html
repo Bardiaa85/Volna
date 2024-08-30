@@ -30,13 +30,14 @@
     <div class="player__content">
         <span class="player__track"><b class="player__title">{{release.title}}</b> – <span class="player__artist">{{release.artist}}</span></span>
         <audio src="{{release.audio_file.url}}" id="audio" controls></audio>
-
+        
     </div>
 </div>
 
 <!-- end player -->
+<canvas id='canvas'></canvas>  
             <div class="col-12 col-lg-8">
-
+                
                     <!-- comments -->
                      {% if in_favorites_list %}
                      <div class="comments">
