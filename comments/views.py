@@ -20,10 +20,16 @@ def adding_comment(request , slug):
             return redirect("news:single_article_page" , slug = slug)
 def delete_comment(request , id):
     comment = Comment.objects.get(id = id)
-    if comment.related_release :
-        comment.delete()
-        return redirect("releases:single_release_page" , slug = comment.related_release.slug)
+    if request.user == comment.related_user or request.user.is_staff : 
+        if comment.related_release :
+            comment.delete()
+            return redirect("releases:single_release_page" , slug = comment.related_release.slug)
+        else:
+            comment.delete()
+            return redirect("news:single_article_page" , slug = comment.related_article.slug)
     else:
-        comment.delete()
-        return redirect("news:single_article_page" , slug = comment.related_article.slug)
+        if comment.related_release :
+            return redirect("releases:single_release_page" , slug = comment.related_release.slug)
+        else:
+            return redirect("news:single_article_page" , slug = comment.related_article.slug)
             
