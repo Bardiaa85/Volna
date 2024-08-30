@@ -16,11 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 150, 0.1, 1000);
     camera.position.z = 100;
 
-    // Gradient Background
     const backgroundTexture = new THREE.TextureLoader().load('https://via.placeholder.com/800x150/000000/FFFFFF?text='); // Placeholder for gradient background
     scene.background = backgroundTexture;
 
-    // Lights
     const ambientLight = new THREE.AmbientLight(0x666666);
     scene.add(ambientLight);
 
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             bar.rotation.x = Math.PI / 4;
             bar.rotation.z = Math.PI / 4;
 
-            // Animation effect
             bar.userData.rotationSpeed = Math.random() * 0.01;
 
             scene.add(bar);
@@ -91,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const lightness = 0.5 + (dataArray[i] / 256) * 0.5;
             bars[i].material.color.set(color.clone().lerp(new THREE.Color('#1a8b50'), lightness));
 
-            // Apply rotation for 3D effect
             bars[i].rotation.y += bars[i].userData.rotationSpeed;
         }
 

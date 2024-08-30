@@ -11,11 +11,15 @@ def adding_comment(request , slug):
         if len(article) == 0 :
             release = Release.objects.get(slug = slug)
             new_comment = Comment(content = comment_content , related_release = release , related_user = request.user)
+            if new_comment.content == "" :       
+                return redirect("releases:single_release_page" , slug = new_comment.related_release.slug)
             new_comment.save()
             return redirect("releases:single_release_page" , slug = slug)
         else  :
             article = Article.objects.get(slug = slug)
             new_comment = Comment(content = comment_content , related_article = article , related_user = request.user)
+            if new_comment.content == "" :       
+                return redirect("news:single_article_page" , slug = new_comment.related_article.slug)
             new_comment.save()
             return redirect("news:single_article_page" , slug = slug)
 def delete_comment(request , id):
