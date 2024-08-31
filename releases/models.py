@@ -1,10 +1,11 @@
 from django.db import models
 from artists.models import Artist
+from django.core.validators import FileExtensionValidator
 from mutagen import File
 class Release(models.Model):
     title = models.CharField(max_length = 255)
     cover_art = models.ImageField(upload_to = "releases/covers")
-    audio_file = models.FileField(upload_to = "releases/audios")
+    audio_file = models.FileField(upload_to = "releases/audios" , validators = [FileExtensionValidator(allowed_extensions = ['mp3' , 'wav' , 'ogg'])])
     slug = models.SlugField()
     artist = models.ForeignKey(Artist , on_delete = models.CASCADE , null = True , blank = True)
     release_date = models.DateTimeField(auto_now_add = True)
