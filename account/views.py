@@ -9,6 +9,7 @@ from django.contrib.auth import login , logout
 from django.conf import settings
 from .models import Profile
 from home.views import apply_profile
+from home.models import Logo , FooterInfo , BrowserTabInfo
 import random
 def email_activation_code_maker():
     result = []
@@ -16,6 +17,9 @@ def email_activation_code_maker():
         result.append(str((random.randint(0 , 9))))
     return "".join(result)
 def sign_up_page(request):
+    logo = list(Logo.objects.all())[-1] if len(Logo.objects.all()) != 0 else None
+    footer_info = list(FooterInfo.objects.all())[-1] if len(FooterInfo.objects.all()) != 0 else None
+    tab_info = list(BrowserTabInfo.objects.all())[-1] if len(BrowserTabInfo.objects.all()) != 0 else None
     if request.user.is_authenticated :
         return redirect("home:home_page")
     if request.method == "POST":
@@ -25,7 +29,7 @@ def sign_up_page(request):
             new_user = User.objects.filter(email__iexact = user_email).exists()
             if new_user:
                 form.add_error("email" , "ایمیل وارد شده معتبر نیست")
-                return render(request , "account/signup.html" , {"active_page" : "main_page" , "form" : form}) 
+                return render(request , "account/signup.html" , {"active_page" : "main_page" , "form" : form , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info}) 
             else : 
                 user_full_name = request.POST.get("full_name")
                 user_password = request.POST.get("password")
@@ -45,9 +49,12 @@ def sign_up_page(request):
                 )             
                 return redirect("account:email_activation_page" , username = new_user.username)
         else:
-            return render(request , "account/signup.html" , {"active_page" : "main_page" , "form" : form})           
-    return render(request , "account/signup.html" , {"active_page" : "main_page" , "form" : SignUpForm})
+            return render(request , "account/signup.html" , {"active_page" : "main_page" , "form" : form , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})           
+    return render(request , "account/signup.html" , {"active_page" : "main_page" , "form" : SignUpForm , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})
 def email_activation_page(request , username):
+    logo = list(Logo.objects.all())[-1] if len(Logo.objects.all()) != 0 else None
+    footer_info = list(FooterInfo.objects.all())[-1] if len(FooterInfo.objects.all()) != 0 else None
+    tab_info = list(BrowserTabInfo.objects.all())[-1] if len(BrowserTabInfo.objects.all()) != 0 else None
     if request.user.is_authenticated :
         return redirect("home:home_page")
     if request.method == "POST":
@@ -60,9 +67,12 @@ def email_activation_page(request , username):
             login(request , user)
             return redirect("home:home_page")
         else :
-            return render(request , "account/email-activation.html" , {"active_page" : "main_page" , "error" : "کد وارد شده با کد ارسال شده مطابقت ندارد" , "username" : username})                   
-    return render(request , "account/email-activation.html" , {"active_page" : "main_page" , "username" : username})
+            return render(request , "account/email-activation.html" , {"active_page" : "main_page" , "error" : "کد وارد شده با کد ارسال شده مطابقت ندارد" , "username" : username , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})                   
+    return render(request , "account/email-activation.html" , {"active_page" : "main_page" , "username" : username , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})
 def sign_in_page(request):
+    logo = list(Logo.objects.all())[-1] if len(Logo.objects.all()) != 0 else None
+    footer_info = list(FooterInfo.objects.all())[-1] if len(FooterInfo.objects.all()) != 0 else None
+    tab_info = list(BrowserTabInfo.objects.all())[-1] if len(BrowserTabInfo.objects.all()) != 0 else None
     if request.user.is_authenticated :
         return redirect("home:home_page")
     if request.method == "POST" :
@@ -73,7 +83,7 @@ def sign_in_page(request):
             if user is not None:
                 if user.is_active == False:
                     form.add_error("password" , "اکانت شما هنوز فعال نشده است")
-                    return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form})
+                    return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})
                 else:
                     user_password = request.POST.get("password")
                     is_password_correct = user.check_password(user_password)
@@ -82,13 +92,13 @@ def sign_in_page(request):
                         return redirect('home:home_page')
                     else:
                         form.add_error("password" , "ایمیل یا رمز عبور شما نادرست است")
-                        return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form})
+                        return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})
             else:
                 form.add_error("password" , "ایمیل یا رمز عبور شما نادرست است")
-                return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form})
+                return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})
         else :
-            return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form})
-    return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : SignInForm})
+            return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})
+    return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : SignInForm , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})
 def log_out_page(request):
     if request.user.is_authenticated :
         logout(request)
@@ -97,8 +107,14 @@ def log_out_page(request):
 def profile_page(request):
     if request.user.is_authenticated :
         user_full_name = apply_profile(request)
+        logo = list(Logo.objects.all())[-1] if len(Logo.objects.all()) != 0 else None
+        footer_info = list(FooterInfo.objects.all())[-1] if len(FooterInfo.objects.all()) != 0 else None
+        tab_info = list(BrowserTabInfo.objects.all())[-1] if len(BrowserTabInfo.objects.all()) != 0 else None
         user = request.user
         profile = Profile.objects.get(related_user = user)
-        return render(request , "account/profile.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name , "profile" : profile})
+        return render(request , "account/profile.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name , "profile" : profile , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})
     else :
-        return render(request , "shared/login-required.html" , {"active_page" : "main_page"})
+        user_full_name = apply_profile(request)
+        logo = list(Logo.objects.all())[-1] if len(Logo.objects.all()) != 0 else None
+        footer_info = list(FooterInfo.objects.all())[-1] if len(FooterInfo.objects.all()) != 0 else None
+        return render(request , "shared/login-required.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})
