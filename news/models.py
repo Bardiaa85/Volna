@@ -16,11 +16,11 @@ persian_months = {
     12 : "اسفند" 
 }
 class Article(models.Model):
-    title = models.CharField(max_length = 255)
+    title = models.CharField(max_length = 255 , verbose_name = "عنوان")
     article_date = models.DateTimeField(auto_now_add = True)
-    slug = models.SlugField()
-    image = models.ImageField(upload_to = "news")
-    content = models.TextField()
+    slug = models.SlugField(verbose_name = "پیوندک")
+    image = models.ImageField(upload_to = "news" , verbose_name = "تصویر")
+    content = models.TextField(verbose_name = "محتوا")
     def get_time(self):
         formatted_time = self.article_date.strftime("%I:%M%p")
         formatted_time = formatted_time.replace("PM" , " بعد از ظهر ").replace("AM" , " قبل از ظهر")
@@ -58,3 +58,6 @@ class Article(models.Model):
         return len(self.comment_set.all())
     def __str__(self):
         return self.title
+    class Meta() :
+        verbose_name = "مقاله"
+        verbose_name_plural = "اخبار"

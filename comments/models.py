@@ -19,11 +19,11 @@ persian_months = {
     12 : "اسفند" 
 }
 class Comment(models.Model):
-    content = models.CharField(max_length = 255)
+    content = models.CharField(max_length = 255 , verbose_name = "محتوا")
     comment_date = models.DateTimeField(auto_now_add = True)
-    related_user = models.ForeignKey(User , on_delete = models.CASCADE)
-    related_release = models.ForeignKey(Release , on_delete = models.CASCADE , null = True , blank = True)
-    related_article = models.ForeignKey(Article , on_delete = models.CASCADE , null = True , blank = True)
+    related_user = models.ForeignKey(User , on_delete = models.CASCADE , verbose_name = "کاربر مرتبط")
+    related_release = models.ForeignKey(Release , on_delete = models.CASCADE , null = True , blank = True , verbose_name = "موزیک مرتبط")
+    related_article = models.ForeignKey(Article , on_delete = models.CASCADE , null = True , blank = True , verbose_name = "مقاله مرتبط")
     def related_profile(self):
         return Profile.objects.get(related_user = self.related_user)
     def get_time(self):
@@ -37,3 +37,6 @@ class Comment(models.Model):
         return jdate
     def __str__(self):
         return self.content   
+    class Meta():
+        verbose_name_plural = "کامنت ها"
+        verbose_name = "کامنت"
