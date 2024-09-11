@@ -47,7 +47,7 @@
                         </div>
                         <div class = "pages">
                             {% for page in paginator %}
-                            <a href = "/releases/?page={{page}}" {% if page == this_page.number %} class = "active_page" {% else %} class = "unactive_page" {% endif %}>{{page}}</a>
+                            <a href = "/news/?page={{page}}" {% if page == this_page.number %} class = "active_page" {% else %} class = "unactive_page" {% endif %}>{{page}}</a>
                             {% endfor %}
                             </div>
 				</div>

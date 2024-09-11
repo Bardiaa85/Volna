@@ -424,7 +424,7 @@ body::-webkit-scrollbar-thumb {
   fill: #ffffff;
 }
 .header__btn {
-  margin-left: 90px;
+  margin-left: 60px;
   position: absolute;
   width: 24px;
   height: 22px;
