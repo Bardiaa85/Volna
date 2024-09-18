@@ -24,6 +24,7 @@ class Comment(models.Model):
     related_user = models.ForeignKey(User , on_delete = models.CASCADE , verbose_name = "کاربر مرتبط")
     related_release = models.ForeignKey(Release , on_delete = models.CASCADE , null = True , blank = True , verbose_name = "موزیک مرتبط")
     related_article = models.ForeignKey(Article , on_delete = models.CASCADE , null = True , blank = True , verbose_name = "مقاله مرتبط")
+    replied_to = models.ForeignKey('self' , on_delete = models.CASCADE , null = True , blank = True , verbose_name = "پاسخ داده شده به" , related_name = "replies")
     def related_profile(self):
         return Profile.objects.get(related_user = self.related_user)
     def get_time(self):

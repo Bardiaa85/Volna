@@ -36,4 +36,21 @@ def delete_comment(request , id):
             return redirect("releases:single_release_page" , slug = comment.related_release.slug)
         else:
             return redirect("news:single_article_page" , slug = comment.related_article.slug)
-            
+def adding_reply(request , id):
+    if request.method == "POST":
+        comment = Comment.objects.get(id = id)
+        comment_content = request.POST.get("comment")
+        if comment.related_release != None :
+            release = Release.objects.get(slug = comment.related_release.slug)
+            new_comment = Comment(content = comment_content , related_release = release , related_user = request.user , replied_to = comment)
+            if new_comment.content == "" :       
+                return redirect("releases:single_release_page" , slug = new_comment.related_release.slug)
+            new_comment.save()
+            return redirect("releases:single_release_page" , slug = comment.related_release.slug)
+        else  :
+            article = Article.objects.get(slug = comment.related_article.slug)
+            new_comment = Comment(content = comment_content , related_article = article , related_user = request.user , replied_to = comment)
+            if new_comment.content == "" :       
+                return redirect("news:single_article_page" , slug = new_comment.related_article.slug)
+            new_comment.save()
+            return redirect("news:single_article_page" , slug = comment.related_article.slug)       

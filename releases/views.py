@@ -11,13 +11,13 @@ def releases_page(request):
    logo = list(Logo.objects.all())[-1] if len(Logo.objects.all()) != 0 else None
    footer_info = list(FooterInfo.objects.all())[-1] if len(FooterInfo.objects.all()) != 0 else None
    tab_info = list(BrowserTabInfo.objects.all())[-1] if len(BrowserTabInfo.objects.all()) != 0 else None
-   data = Release.objects.all()
+   data = Release.objects.order_by("-id")
    events = Event.objects.order_by("-event_date")[0 : 2]
    newest_releases = Release.objects.order_by("-release_date")[0 : 5]
    if request.method == "POST" :
         release_title = request.POST.get("release-search")
         data = Release.objects.filter(title__icontains = release_title)
-   paginator = Paginator(data , 30)
+   paginator = Paginator(data , 42)
    page_number = request.GET.get("page")
    this_page = paginator.get_page(page_number)
    this_page_content = list(this_page)
