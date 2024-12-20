@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.http import JsonResponse
 from account.models import Profile
 from releases.models import Release
 from home.views import apply_profile
@@ -26,9 +27,11 @@ def add_to_favorites(request , slug):
     release = Release.objects.get(slug = slug)
     profile = Profile.objects.get(related_user = request.user)
     profile.favorites_list.add(release)
-    return redirect("releases:single_release_page" , slug = slug)
+    data = {"status" : "success" , "message" : "Data saved successfully"}
+    return JsonResponse(data)
 def delete_from_favorites(request , slug):
     release = Release.objects.get(slug = slug)
     profile = Profile.objects.get(related_user = request.user)
     profile.favorites_list.remove(release)
-    return redirect("releases:single_release_page" , slug = slug)
+    data = {"status" : "success" , "message" : "Data saved successfully"}
+    return JsonResponse(data)
