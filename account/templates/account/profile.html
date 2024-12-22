@@ -27,7 +27,11 @@
 					<div class="profile">
 						<div class="profile__user">
 							<div class="profile__avatar">
+								{% if user.is_staff == False %}
 								<img src="/static/img/avatar.svg" alt="">
+								{% else %}
+								<img src="/static/img/admin.jpg" alt="">
+								{% endif %}
 							</div>
 							<div class="profile__meta">
 								<h3>{{profile.full_name}}</h3>

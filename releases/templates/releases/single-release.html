@@ -62,18 +62,19 @@
                      {% endif %}
                         <div class="comments__title">
                             <h4>نظرات</h4>
-                            <span>{{release.len_comments}}</span>
+                            <span id="len_comments">{{release.len_comments}}</span>
                         </div>
 
-                        <ul class="comments__list">
+                        <ul id="comments_list_" class="comments__list">
                             {% for comment in comments_list %}
                         {% if comment.replied_to == null %}
                             <li class="comments__item">
                                 <div class="comments__autor">
-                                    <img class="comments__avatar" src="/static/img/avatar.svg" alt="">
                                     {% if comment.related_user.is_staff == False %}
+                                    <img class="comments__avatar" src="/static/img/avatar.svg" alt="">
                                     <span class="comments__name">{{comment.related_profile.full_name}}</span>
                                     {% else %}
+                                    <img class="comments__avatar" src="/static/img/admin.jpg" alt="">
                                     <span style = "color: #B3FF80; "class="comments__name"><b>{{comment.related_profile.full_name}}</b></span>
                                     {% endif %}
                                     <span class="comments__time">{{comment.get_time}} , {{comment.get_solar_date}}</span>
@@ -84,11 +85,11 @@
 
                                     </div>
                                     {% if comment.related_user == user or user.is_staff %}
-                                    <a style="color: #ffff ; margin-left: 15px;" href="{% url 'comments:delete_comment' id=comment.id %}">
+                                    <button style="color: #c0c0c0 ; margin-left: 15px;" onclick="delComment({{comment.id}} , this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
                                             <path d="M14 3a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2M3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5s-3.69-.311-4.785-.793"/>
                                           </svg>
-                                    </a>
+                                        </butoon>
                                     {% endif %}
                                     <button onclick="showReplayForm({{forloop.counter}})" style="margin-right: 10px;" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.707,11.293l-8-8A.99991.99991,0,0,0,12,4V7.54492A11.01525,11.01525,0,0,0,2,18.5V20a1,1,0,0,0,1.78418.62061,11.45625,11.45625,0,0,1,7.88672-4.04932c.0498-.00635.1748-.01611.3291-.02588V20a.99991.99991,0,0,0,1.707.707l8-8A.99962.99962,0,0,0,21.707,11.293ZM14,17.58594V15.5a.99974.99974,0,0,0-1-1c-.25488,0-1.2959.04932-1.56152.085A14.00507,14.00507,0,0,0,4.05176,17.5332,9.01266,9.01266,0,0,1,13,9.5a.99974.99974,0,0,0,1-1V6.41406L19.58594,12Z"/></svg><span>پاسخ</span></button>
 
@@ -98,10 +99,11 @@
                             {% for reply in comment.replies.all %}
                             <li class="comments__item comments__item--quote">
                                 <div class="comments__autor">
-                                    <img class="comments__avatar" src="/static/img/avatar.svg" alt="">
                                     {% if reply.related_user.is_staff == False %}
+                                    <img class="comments__avatar" src="/static/img/avatar.svg" alt="">
                                     <span class="comments__name">{{reply.related_profile.full_name}}</span>
                                     {% else %}
+                                    <img class="comments__avatar" src="/static/img/admin.jpg" alt="">
                                     <span style = "color: #B3FF80; "class="comments__name"><b>{{reply.related_profile.full_name}}</b></span>
                                     {% endif %}
                                     <span class="comments__time">{{reply.get_time}} , {{reply.get_solar_date}}</span>
@@ -112,11 +114,11 @@
                                     </div>
 
                                     {% if reply.related_user == user or user.is_staff %}
-                                    <a style="color: #ffff ; margin-left: 15px;" href="{% url 'comments:delete_comment' id=reply.id %}">
+                                    <button style="color: #c0c0c0 ; margin-left: 15px;" onclick="delComment({{reply.id}} , this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
                                             <path d="M14 3a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2M3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5s-3.69-.311-4.785-.793"/>
                                           </svg>
-                                    </a>
+                                        </button>
                                     {% endif %}
                                 </div>
                             </li>
@@ -143,7 +145,7 @@
                             };
                         </script>
                         </ul>
-                        <form method = "post" action="{% url 'comments:adding_comment' slug=release.slug %}" class="comments__form">
+                        <form method = "post" data-slug="{{release.slug}}" class="comments__form">
                         {% csrf_token %}
                             <div class="sign__group">
                                 <textarea id="text" name="comment" class="sign__textarea" placeholder="نظر شما . . ."></textarea>
@@ -158,4 +160,8 @@
         </div>
     </div>
 </main>
+
+    <p id="notification1" class="notification">!نظر با موفقیت حذف شد</p>
+    <p id="notification2" class="notification">!نظر شما با موفقیت ثبت شد</p>
+
 {% endblock %}

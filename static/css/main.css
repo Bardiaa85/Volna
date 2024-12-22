@@ -6348,3 +6348,55 @@ input{
   display: block;
   background-color: transparent;
 }
+#notification1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: #2b2b2b; 
+  color: #ff4c4c; 
+  border: 1px solid #ff4c4c;
+  padding: 15px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+  white-space: nowrap;
+}
+
+#notification1.show {
+  opacity: 1;
+  visibility: visible;
+}
+#notification2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: #2b2b2b; 
+  color: #AFFFB1; 
+  border: 1px solid #AFFFB1;
+  padding: 15px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+  white-space: nowrap;
+}
+
+#notification2.show {
+  opacity: 1;
+  visibility: visible;
+}
