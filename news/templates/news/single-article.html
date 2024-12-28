@@ -64,10 +64,11 @@
                                           </svg>
 										</button>
                                     {% endif %}
-									<button onclick="showReplayForm({{forloop.counter}})" style="margin-right: 10px;" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.707,11.293l-8-8A.99991.99991,0,0,0,12,4V7.54492A11.01525,11.01525,0,0,0,2,18.5V20a1,1,0,0,0,1.78418.62061,11.45625,11.45625,0,0,1,7.88672-4.04932c.0498-.00635.1748-.01611.3291-.02588V20a.99991.99991,0,0,0,1.707.707l8-8A.99962.99962,0,0,0,21.707,11.293ZM14,17.58594V15.5a.99974.99974,0,0,0-1-1c-.25488,0-1.2959.04932-1.56152.085A14.00507,14.00507,0,0,0,4.05176,17.5332,9.01266,9.01266,0,0,1,13,9.5a.99974.99974,0,0,0,1-1V6.41406L19.58594,12Z"/></svg><span>پاسخ</span></button>
+									<button onclick="showReplayForm(this)" style="margin-right: 10px;" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.707,11.293l-8-8A.99991.99991,0,0,0,12,4V7.54492A11.01525,11.01525,0,0,0,2,18.5V20a1,1,0,0,0,1.78418.62061,11.45625,11.45625,0,0,1,7.88672-4.04932c.0498-.00635.1748-.01611.3291-.02588V20a.99991.99991,0,0,0,1.707.707l8-8A.99962.99962,0,0,0,21.707,11.293ZM14,17.58594V15.5a.99974.99974,0,0,0-1-1c-.25488,0-1.2959.04932-1.56152.085A14.00507,14.00507,0,0,0,4.05176,17.5332,9.01266,9.01266,0,0,1,13,9.5a.99974.99974,0,0,0,1-1V6.41406L19.58594,12Z"/></svg><span>پاسخ</span></button>
 									</div>
 								</li>
-								<form id = "reply{{forloop.counter}}" method = "post" action="{% url 'comments:adding_reply' id=comment.id %}">{% csrf_token %}</form>                      
+								<form data-id = "{{comment.id}}" id = "replies__form" method = "post" ></form>  
+								<div id ="replies" >                    
 									{% for reply in comment.replies.all %}
 									<li class="comments__item comments__item--quote">
 										<div class="comments__autor">
@@ -95,31 +96,16 @@
 										</div>
 								</li>
 								{% endfor %}
+								</div>
 								{% endif %}
                            
 								{% endfor %}
-								<script>
-								function showReplayForm(elementId){
-									const contentArea = document.getElementById(`reply${elementId}`) ;
-								
-									const htmlTags = `
-										{% csrf_token %}	
-										<div class="sign__group">
-										<textarea id="text" name="comment" class="sign__textarea" placeholder="پاسخ شما ..."></textarea>
-										</div>
-										<button type="submit" class="sign__btn">ارسال</button>
-									` ;
-									contentArea.classList.add('comments__form') ;
-									contentArea.innerHTML = htmlTags ;
-									
-								};
-							</script>
 							</ul>
 	
 							<form method = "post" data-slug = "{{article.slug}}" class="comments__form">
 							{% csrf_token %}
 								<div class="sign__group">
-									<textarea id="text" name="comment" class="sign__textarea" placeholder="نظر شما . . ."></textarea>
+									<textarea id="comment_input" name="comment" class="sign__textarea" placeholder="نظر شما . . ."></textarea>
 								</div>
 								<button type="submit" class="sign__btn">ارسال</button>
 							</form>
