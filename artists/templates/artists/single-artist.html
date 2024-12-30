@@ -45,7 +45,7 @@
 					<div class="album__title">
 					<h3><a href="{% url 'releases:single_release_page' slug=release.slug %}">{{release.title}}</a></h3>
 					{% if release.artist %}
-					<span><a href="{% url 'artists:single_artist_page' slug=release.artist.slug %}">{{release.artist}}</a></span>
+					<span><a href="{% url 'artists:single_artist_page' slug=release.artist.slug %}">{{release.full_artists_name }}</a></span>
 					{% else %}
 					<span><a href="#">هنرمند نامشخص</a></span>
 					{% endif %}

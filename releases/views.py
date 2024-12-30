@@ -39,5 +39,5 @@ def single_release_page(request , slug):
     else :
         in_favorites_list = False
     data.views = data.views + 1
-    data.save()
+    data.save()    
     return render(request , "releases/single-release.html" , {"release" : data , "active_page" : "releases" , "user_full_name" : user_full_name , "in_favorites_list" : in_favorites_list , "comments_list" : comments_list , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})

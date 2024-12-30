@@ -25,5 +25,5 @@ def single_artist_page(request , slug) :
     footer_info = list(FooterInfo.objects.all())[-1] if len(FooterInfo.objects.all()) != 0 else None
     tab_info = list(BrowserTabInfo.objects.all())[-1] if len(BrowserTabInfo.objects.all()) != 0 else None
     data = Artist.objects.get(slug = slug)
-    releases = data.release_set.all()
+    releases = list(data.main_artist.all()) + list(data.features.all())
     return render(request , "artists/single-artist.html" , {"artist" : data , "related_releases" : releases , "active_page" : "artists" , "user_full_name" : user_full_name , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})

@@ -16,7 +16,7 @@
             <!-- title -->
             <div class="col-12">
                 <div class="main__title main__title--page">
-                    <h1>{{release.artist}} - {{release.title}}</h1>
+                    <h1>{{release.full_artists_name}} - {{release.title}}</h1>
                 </div>
             </div>
             <!-- end title -->
@@ -28,7 +28,7 @@
     </div>
 
     <div class="player__content">
-        <span class="player__track"><b class="player__title">{{release.title}}</b> – <span class="player__artist">{{release.artist}}</span></span>
+        <span class="player__track"><b class="player__title">{{release.title}}</b> – <span class="player__artist">{{release.full_artists_name }}</span></span>
         <audio src="{{release.audio_file.url}}" id="audio" controls></audio>
         
     </div>

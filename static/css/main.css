@@ -2468,6 +2468,8 @@ input{
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
+  direction: rtl;
+  text-align: right;
 }
 .album__title span a {
   color: #c0c0c0;
