@@ -28,12 +28,14 @@
 								<div class="sign__group">
 									<input type="text" name = "email-activation" class="sign__input" placeholder="کد تایید">
                                     {% if error %}
-                                    <ul class="error_list">
+                                    <ul class="errorlist">
                                         <li>{{error}}</li>
                                     </ul> 
                                     {% endif %}
 								</div>						
 								<button class="sign__btn" type="submit">تایید ایمیل</button>
+								<span class="sign__text"><a href="{% url 'account:resend_code' username=username %}">ارسال مجدد کد</a></span>
+
 							</form>
 						</div>
 					</div>

@@ -26,8 +26,12 @@ def sign_up_page(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user_email = request.POST.get("email")
-            new_user = User.objects.filter(email__iexact = user_email).exists()
+            new_user = User.objects.filter(email__iexact = user_email).exists()         
             if new_user:
+                new_user2 = User.objects.filter(email__iexact = user_email).first()
+                if new_user and new_user2.is_active == False :
+                    form.add_error("password_confirmation" , "اکانت شما غیرفعال است ؛ از بخش ورود اقدام نمایید")
+                    return render(request , "account/signup.html" , {"active_page" : "main_page" , "form" : form , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info}) 
                 form.add_error("email" , "ایمیل وارد شده معتبر نیست")
                 return render(request , "account/signup.html" , {"active_page" : "main_page" , "form" : form , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info}) 
             else : 
@@ -81,18 +85,17 @@ def sign_in_page(request):
             user_email = request.POST.get("email")
             user = User.objects.filter(email__iexact = user_email).first()
             if user is not None:
-                if user.is_active == False:
-                    form.add_error("password" , "اکانت شما هنوز فعال نشده است")
-                    return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})
-                else:
-                    user_password = request.POST.get("password")
-                    is_password_correct = user.check_password(user_password)
-                    if is_password_correct:
+                user_password = request.POST.get("password")
+                is_password_correct = user.check_password(user_password)
+                if is_password_correct:
+                    if user.is_active == False :
+                        return(redirect("account:email_activation_page" , username = user.username))
+                    else : 
                         login(request , user)
                         return redirect('home:home_page')
-                    else:
-                        form.add_error("password" , "ایمیل یا رمز عبور شما نادرست است")
-                        return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})
+                else:
+                    form.add_error("password" , "ایمیل یا رمز عبور شما نادرست است")
+                    return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})
             else:
                 form.add_error("password" , "ایمیل یا رمز عبور شما نادرست است")
                 return render(request , "account/signin.html" , {"active_page" : "main_page" , "form" : form , "footer_info" : footer_info , "logo" : logo , "tab_info" : tab_info})
@@ -118,3 +121,17 @@ def profile_page(request):
         logo = list(Logo.objects.all())[-1] if len(Logo.objects.all()) != 0 else None
         footer_info = list(FooterInfo.objects.all())[-1] if len(FooterInfo.objects.all()) != 0 else None
         return render(request , "shared/login-required.html" , {"active_page" : "main_page" , "user_full_name" : user_full_name , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})
+def resend_code(request , username):
+    profile = Profile.objects.filter(username = username).first()
+    profile.email_activation_code = email_activation_code_maker()
+    profile.save()
+    html_message = render_to_string("email_templates/email-template.html" , context = {"email_activation_code" : profile.email_activation_code}) 
+    plain_message = strip_tags(html_message)  
+    send_mail(
+        subject = "فعالسازی حساب کاربری" ,
+        from_email = settings.EMAIL_HOST_USER ,
+        recipient_list = [profile.related_user.email] ,
+        message = plain_message ,
+        html_message = html_message
+        )             
+    return redirect("account:email_activation_page" , username = profile.username)

@@ -38,7 +38,7 @@ function showReplayForm(button){
             .then(data => {
                 if (data.status === 'success') {
                     if (data.has_content){
-                        const ul = document.getElementById('replies') ;
+                        const ul = contentArea.nextElementSibling ;
                         const newLi = document.createElement('li') ;
                         newLi.setAttribute('class' , 'comments__item comments__item--quote') ;
                         if (data.is_comment_user_admin){
@@ -63,7 +63,7 @@ function showReplayForm(button){
                             newLi.innerHTML = `
                                         <div class="comments__autor">
                                         <img class="comments__avatar" src="/static/img/avatar.svg" alt="">
-                                        <span "class="comments__name"><b>${data.comment_user_name}</b></span>
+                                        <span class="comments__name">${data.comment_user_name}</span>
                                         <span class="comments__time">${data.comment_time} , ${data.comment_date}</span>
                                     </div>
                                     <p class="comments__text"><span>${data.replied_to_json.content}</span>${data.comment.content}</p>
@@ -79,7 +79,7 @@ function showReplayForm(button){
                                     </div>
                             ` 
                         };
-                        ul.insertBefore(newLi , ul.firstChild) ;
+                        ul.appendChild(newLi) ;
                         contentArea.classList.remove('comments__form')
                         contentArea.innerHTML = ''
                         len_comments = document.getElementById('len_comments') ;

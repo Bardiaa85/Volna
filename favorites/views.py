@@ -14,7 +14,7 @@ def favorites_page(request):
         return render(request , "shared/login-required.html" , {"active_page" : "favorites" , "logo" : logo , "footer_info" : footer_info , "tab_info" : tab_info})
     user_full_name = apply_profile(request)
     profile = Profile.objects.get(related_user = request.user)
-    favorites_list = profile.favorites_list.all()
+    favorites_list = profile.favorites_list.order_by("-id")
     paginator = Paginator(favorites_list , 30)
     page_number = request.GET.get("page")
     this_page = paginator.get_page(page_number)

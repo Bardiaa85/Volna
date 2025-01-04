@@ -133,7 +133,7 @@
 									<div class="single-item__title">
 										<h4><a href="{% url 'releases:single_release_page' slug=release.slug%}">{{release.title}}</a></h4>
 										{% if release.artist %}
-										<span><a href="{% url 'artists:single_artist_page' slug=release.artist.slug %}">{{release.full_artists_name }}</a></span>
+										<span id="player__artist2"><a href="{% url 'artists:single_artist_page' slug=release.artist.slug %}">{{release.full_artists_name }}</a></span>
 										{% else %}
 										<span><a href="#">هنرمند نامشخص</a></span>
 									 	{% endif %}

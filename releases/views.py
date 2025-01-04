@@ -32,6 +32,8 @@ def single_release_page(request , slug):
     profile = Profile.objects.get(related_user = request.user)
     user_full_name = apply_profile(request)
     data = Release.objects.get(slug = slug)
+    profile.listening_history.add(data)
+    profile.save()
     favorites_list = profile.favorites_list.all()
     comments_list = data.comment_set.order_by("-comment_date")
     if data in favorites_list:

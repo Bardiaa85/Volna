@@ -10,7 +10,7 @@ class Release(models.Model):
     artist = models.ForeignKey(Artist , on_delete = models.CASCADE , null = True , blank = True , verbose_name = "هنرمند" , related_name = "main_artist")
     release_date = models.DateTimeField(auto_now_add = True)
     views = models.PositiveIntegerField(default = 0 , verbose_name = "بازدید")
-    features = models.ManyToManyField(Artist , related_name = "features" , verbose_name = "همکاری ها")
+    features = models.ManyToManyField(Artist , blank = True , related_name = "features" , verbose_name = "همکاری ها")
     def __str__(self):
         return self.title
     def get_audio_duration(self):

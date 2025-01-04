@@ -6402,3 +6402,44 @@ input{
   opacity: 1;
   visibility: visible;
 }
+#player__artist2 {
+  display: inline-block;
+  max-width: 265px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  direction: rtl;
+  text-align: right;
+}
+#player__artist1 {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  direction: rtl;
+  text-align: right;
+  margin-bottom: 5px;
+}
+@media (max-width: 1200px) {
+  #player__artist1 {
+     max-width: 700px;
+  }
+}
+@media (max-width: 992px) {
+  #player__artist1 {
+     max-width: 500px;
+  }
+}
+@media (max-width: 768px) {
+  #player__artist1 {
+     max-width: 300px;
+  }
+}
+@media (max-width: 576px) {
+  #player__artist1 {
+     max-width: 160px;
+  }
+}
